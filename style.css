@@ -138,6 +138,7 @@
 
     .parameters {
         width: 80%;
+        background-color: red;
     }
 
 }
@@ -146,6 +147,7 @@
     
     .parameters {
         width: 80%;
+        background-color: yellow;
     }
 
 }
