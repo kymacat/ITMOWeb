@@ -141,3 +141,11 @@
     }
 
 }
+
+@media (pointer:coarse) {
+    
+    .parameters {
+        width: 80%;
+    }
+
+}
