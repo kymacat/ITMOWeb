@@ -26,8 +26,7 @@
 }
 
 .title p {
-    font-size: 10vh;
-    line-height: 10vw;
+    font-size: 40px;
     flex: 1;
 }
 
@@ -35,11 +34,12 @@
     background-color: white;
     color: black;
     width: 30%;
-    height: 10%;
+    height: 15%;
     margin-right: 20px;
     font-size: 20px;
     border-radius: 10px;
     border-width: 0;
+    padding: 5px;
 }
 
 .title input[type=image] {
@@ -55,7 +55,7 @@
 
 
 .mainCity {
-    font-size: 5vh;
+    font-size: 30px;
 }
 
 .logoAndTemprature {
@@ -73,7 +73,7 @@
 
 .logoAndTemprature p {
     all: inherit;
-    font-size: 80px;
+    font-size: 50px;
     margin-right: 20%;
 }
 
