@@ -134,7 +134,7 @@
 }
 
 
-@media (max-width: 320px) { 
+@media (max-width: 900px), (orientation: portrait) { 
 
     .parameters {
         width: 80%;
