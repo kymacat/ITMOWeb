@@ -28,10 +28,25 @@
 .title p {
     font-size: 10vh;
     line-height: 10vw;
+    flex: 1;
 }
 
+.title input[type=text] {
+    background-color: white;
+    color: black;
+    width: 30%;
+    height: 10%;
+    margin-right: 20px;
+    font-size: 20px;
+    border-radius: 10px;
+    border-width: 0;
+}
 
-.title input:hover {
+.title input[type=image] {
+    width: 30px;
+}
+
+.title input[type=image]:hover {
     background-color: rgb(123, 227, 252);
 }
 
@@ -68,21 +83,37 @@
 .cityHeader {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.cityHeader img {
+    width: 30px;
+    margin-right: 10%;
 }
 
 .cityLabel {
-    flex: 0.5;
+    flex: 1;
+    padding-left: 10%;
 }
 
-.deleteButton {
-    flex: 0.5;
+.cityHeader input {
+    height: 30px;
+    width: 30px;
+}
+
+.cityHeader input:hover {
+    background-color: rgb(123, 227, 252);
+    background-clip: border-box;
+    border-radius: 15;
 }
 
 
 /* Params for weather */
 
 .parameters {
-    width: 40%;
+    width: 80%;
     margin: 2%;
     padding-left: 0px;
 }
@@ -103,4 +134,10 @@
 }
 
 
+@media (min-width: 900px) { 
 
+    .parameters {
+        width: 40%;
+    }
+
+}
