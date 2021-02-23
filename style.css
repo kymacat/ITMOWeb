@@ -134,7 +134,7 @@
 }
 
 
-@media (max-width: 900px) { 
+@media (max-width: 900px) and (orientation: landscape) { 
 
     .parameters {
         width: 80%;
@@ -143,11 +143,11 @@
 
 }
 
-@media (pointer:coarse) {
+/* @media (pointer:coarse) {
     
     .parameters {
         width: 80%;
         background-color: yellow;
     }
 
-}
+} */
