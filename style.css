@@ -138,16 +138,6 @@
 
     .parameters {
         width: 80%;
-        background-color: teal;
     }
 
 }
-
-/* @media (pointer:coarse) {
-    
-    .parameters {
-        width: 80%;
-        background-color: yellow;
-    }
-
-} */
