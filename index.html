@@ -8,23 +8,24 @@
   
   <body>
 
-    <div class="container">
+    <main class="container">
 
-        <div class="title">
-            <p>Погода здесь</p>
+        <section class="title">
+            <h1>Погода здесь</h1>
+            <button class="updateButton">Обновить геопозицию</button>
             <input type="image" src="images/update.png">
-        </div>
+        </section>
 
-        <div class="parameters">
+        <section class="parameters">
 
-            <p class="mainCity">Saint Petersburg</p>
+            <h2 class="mainCity">Saint Petersburg</h2>
 
             <div class="logoAndTemprature">
                 <img src="images/weather.png">
                 <p>8 °С</p>
             </div>
 
-        </div>
+        </section>
 
 
         <ul class="parameters">
@@ -53,19 +54,20 @@
         </ul>
 
         <div class="title">
-            <p>Избранное</p>
+            <h2>Избранное</h2>
             
             <input type="text" placeholder="Введите город">
 
-            <input type="image" src="images/plus.png">
+            <button class="addCityButton">
+                <img src="images/plus.png" >
+            </button>
             
         </div>
-
 
         <ul class="parameters">
 
             <li class="cityHeader">
-                <p>Moscow</p>
+                <h4>Moscow</h4>
                 <p class="cityLabel">5 °С</p>
                 <img src="images/weather.png">
                 <input type="image" src="images/trash.png">
@@ -98,7 +100,7 @@
         <ul class="parameters">
 
             <li class="cityHeader">
-                <p>Helsinki</p>
+                <h4>Helsinki</h4>
                 <p class="cityLabel">3 °С</p>
                 <img src="images/weather.png">
                 <input type="image" src="images/trash.png">
@@ -131,7 +133,7 @@
         <ul class="parameters">
 
             <li class="cityHeader">
-                <p>Moscow</p>
+                <h4>Moscow</h4>
                 <p class="cityLabel">5 °С</p>
                 <img src="images/weather.png">
                 <input type="image" src="images/trash.png">
@@ -164,7 +166,7 @@
         <ul class="parameters">
 
             <li class="cityHeader">
-                <p>Helsinki</p>
+                <h4>Helsinki</h4>
                 <p class="cityLabel">3 °С</p>
                 <img src="images/weather.png">
                 <input type="image" src="images/trash.png">
@@ -193,7 +195,7 @@
 
         </ul>
 
-    </div>
+    </main>
     
   </body>
 </html>
