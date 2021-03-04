@@ -141,12 +141,26 @@
     border-radius: 15;
 }
 
+/* Favorites */
+
+.favorites {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0;
+    width: 100%;
+}
+
 
 /* Params for weather */
 
-.parameters {
+.cityCard {
     width: 40%;
     margin: 2%;
+}
+
+.parameters {
+    width: 100%;
     padding-left: 0px;
 }
 
@@ -185,7 +199,7 @@
         width: 80%;
     }
 
-    .parameters {
+    .cityCard {
         width: 90%;
     }
 
