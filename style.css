@@ -82,6 +82,11 @@
     background-color: rgb(123, 227, 252);
 }
 
+.inputCity {
+    display: flex;
+    justify-content: space-between;
+}
+
 
 /* Current city */
 
