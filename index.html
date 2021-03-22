@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <link href="style.css" rel="stylesheet">
+    <script src="script.js"></script>
   </head>    
 
   
@@ -16,18 +17,18 @@
             <input type="image" src="images/update.png">
         </section>
 
-        <section class="cityCard">
+        <section class="cityCard" id="currentCity">
 
-            <h2 class="mainCity">Saint Petersburg</h2>
+            <h2 class="mainCity" id="currentCityTitle">Saint Petersburg</h2>
 
             <div class="logoAndTemprature">
-                <img src="images/weather.png">
-                <p>8 °С</p>
+                <img src="images/weather.png" id="currentCityIcon">
+                <p id="currentCityWeather">8 °С</p>
             </div>
 
         </section>
 
-        <div class="cityCard">
+        <div class="cityCard" id="currentCityCard">
 
             <ul class="parameters">
 
@@ -58,20 +59,22 @@
 
         
 
-        <form class="title">
+        <form class="title" id="addCityForm">
+
             <h2>Избранное</h2>
             
             <div class="inputCity">
-                <input type="text" placeholder="Введите город">
+                <input type="text" placeholder="Введите город" id="addCityField">
                 <button class="addCityButton">
-                    <img src="images/plus.png" >
+                    <img src="images/plus.png">
                 </button>
+                
             </div>
             
         </form>
 
-        <ul class="favorites">
-
+        <ul class="favorites" id="favoritesList">
+           
             <div class="cityCard">
 
                 <div class="cityHeader">
@@ -223,7 +226,7 @@
         </ul>
 
         
-
+        
     </main>
     
   </body>
