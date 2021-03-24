@@ -9,21 +9,26 @@
   
   <body>
 
+    <div class="loaderContainer" id="mainLoader">
+        <div class="loader"></div>
+    </div>
+    
+
     <main class="container">
 
         <section class="title">
             <h1>Погода здесь</h1>
-            <button class="updateButton">Обновить геопозицию</button>
+            <button class="updateButton" id="updateBtn">Обновить геопозицию</button>
             <input type="image" src="images/update.png">
         </section>
 
         <section class="cityCard" id="currentCity">
 
-            <h2 class="mainCity" id="currentCityTitle">Saint Petersburg</h2>
+            <h2 class="mainCity" id="currentCityTitle">Санкт-Петербург</h2>
 
             <div class="logoAndTemprature">
                 <img src="images/weather.png" id="currentCityIcon">
-                <p id="currentCityWeather">8 °С</p>
+                <p id="currentCityWeather"></p>
             </div>
 
         </section>
@@ -34,23 +39,23 @@
 
                 <li class="parametersRaw">
                     <p>Ветер</p>
-                    <p>Moderate breeze, 6.0 m/s, North-northwest</p>
+                    <p></p>
                 </li>
                 <li class="parametersRaw">
                     <p>Облачность</p>
-                    <p>Broken clouds</p>
+                    <p></p>
                 </li>
                 <li class="parametersRaw">
                     <p>Давление</p>
-                    <p>1013 hpa</p>
+                    <p></p>
                 </li>
                 <li class="parametersRaw">
                     <p>Влажность</p>
-                    <p>52 %</p>
+                    <p></p>
                 </li>
                 <li class="parametersRaw">
                     <p>Координаты</p>
-                    <p>[59.88, 30.42]</p>
+                    <p></p>
                 </li>
     
             </ul>
@@ -73,160 +78,9 @@
             
         </form>
 
-        <ul class="favorites" id="favoritesList">
-           
-            <div class="cityCard">
-
-                <div class="cityHeader">
-                    <h3>Moscow</h3>
-                    <p class="cityLabel">5 °С</p>
-                    <img src="images/weather.png">
-                    <input type="image" src="images/trash.png">
-                </div>
-
-                <ul class="parameters">
-    
-                    <li class="parametersRaw">
-                        <p>Ветер</p>
-                        <p>Moderate breeze, 6.0 m/s, North-northwest</p>
-                    </li>
-                    <li class="parametersRaw">
-                        <p>Облачность</p>
-                        <p>Broken clouds</p>
-                    </li>
-                    <li class="parametersRaw">
-                        <p>Давление</p>
-                        <p>1013 hpa</p>
-                    </li>
-                    <li class="parametersRaw">
-                        <p>Влажность</p>
-                        <p>52 %</p>
-                    </li>
-                    <li class="parametersRaw">
-                        <p>Координаты</p>
-                        <p>[59.88, 30.42]</p>
-                    </li>
-        
-                </ul>
-
-            </div>
-    
-           
-            <div class="cityCard">
-
-                <div class="cityHeader">
-                    <h3>Helsinki</h3>
-                    <p class="cityLabel">3 °С</p>
-                    <img src="images/weather.png">
-                    <input type="image" src="images/trash.png">
-                </div>
-
-                <ul class="parameters">
-    
-                    <li class="parametersRaw">
-                        <p>Ветер</p>
-                        <p>Moderate breeze, 6.0 m/s, North-northwest</p>
-                    </li>
-                    <li class="parametersRaw">
-                        <p>Облачность</p>
-                        <p>Broken clouds</p>
-                    </li>
-                    <li class="parametersRaw">
-                        <p>Давление</p>
-                        <p>1013 hpa</p>
-                    </li>
-                    <li class="parametersRaw">
-                        <p>Влажность</p>
-                        <p>52 %</p>
-                    </li>
-                    <li class="parametersRaw">
-                        <p>Координаты</p>
-                        <p>[59.88, 30.42]</p>
-                    </li>
-        
-                </ul>
-
-            </div>
-    
-
-            <div class="cityCard">
-
-                <div class="cityHeader">
-                    <h3>Moscow</h3>
-                    <p class="cityLabel">5 °С</p>
-                    <img src="images/weather.png">
-                    <input type="image" src="images/trash.png">
-                </div>
-
-                <ul class="parameters">
-    
-                    <li class="parametersRaw">
-                        <p>Ветер</p>
-                        <p>Moderate breeze, 6.0 m/s, North-northwest</p>
-                    </li>
-                    <li class="parametersRaw">
-                        <p>Облачность</p>
-                        <p>Broken clouds</p>
-                    </li>
-                    <li class="parametersRaw">
-                        <p>Давление</p>
-                        <p>1013 hpa</p>
-                    </li>
-                    <li class="parametersRaw">
-                        <p>Влажность</p>
-                        <p>52 %</p>
-                    </li>
-                    <li class="parametersRaw">
-                        <p>Координаты</p>
-                        <p>[59.88, 30.42]</p>
-                    </li>
-        
-                </ul>
-
-            </div>
-    
-    
-            <div class="cityCard">
-
-                <div class="cityHeader">
-                    <h3>Helsinki</h3>
-                    <p class="cityLabel">3 °С</p>
-                    <img src="images/weather.png">
-                    <input type="image" src="images/trash.png">
-                </div>
-
-                <ul class="parameters">
-    
-                    <li class="parametersRaw">
-                        <p>Ветер</p>
-                        <p>Moderate breeze, 6.0 m/s, North-northwest</p>
-                    </li>
-                    <li class="parametersRaw">
-                        <p>Облачность</p>
-                        <p>Broken clouds</p>
-                    </li>
-                    <li class="parametersRaw">
-                        <p>Давление</p>
-                        <p>1013 hpa</p>
-                    </li>
-                    <li class="parametersRaw">
-                        <p>Влажность</p>
-                        <p>52 %</p>
-                    </li>
-                    <li class="parametersRaw">
-                        <p>Координаты</p>
-                        <p>[59.88, 30.42]</p>
-                    </li>
-        
-                </ul>
-
-            </div>
-
-            
+        <ul class="favorites" id="favoritesList"> 
         </ul>
 
-        
-        
     </main>
     
   </body>
