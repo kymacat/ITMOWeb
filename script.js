@@ -35,7 +35,7 @@ function getCitiesFromLocalStorage() {
 
 function formSubmit() {
 
-   document.getElementById("addCityForm").onsubmit = function() {
+   document.querySelector("#addCityForm").onsubmit = function() {
       
       const field = document.getElementById("addCityField")
       const city = field.value
@@ -60,7 +60,7 @@ function formSubmit() {
 }
 
 function updateSubmit() {
-   document.getElementById("updateBtn").onclick = function () {
+   document.querySelector("#updateBtn").onclick = function () {
       hideMainLoader(false)
       getGeoposition()
    }
@@ -152,28 +152,28 @@ function parseWeather(data) {
 }
 
 function showWeatherForMainCity(weather) {
-    const cityTitle = document.getElementById("currentCityTitle")
-    const cityIcon = document.getElementById("currentCityIcon")
-    const cityWeather = document.getElementById("currentCityWeather")
+    const cityTitle = document.querySelector("#currentCityTitle")
+    const cityIcon = document.querySelector("#currentCityIcon")
+    const cityWeather = document.querySelector("#currentCityWeather")
     
     cityTitle.textContent = weather.cityTitle
     cityIcon.src = weather.iconUrl
     cityWeather.textContent = weather.temperature
     
-    const currCard = document.getElementById("currentCityCard")
+    const currCard = document.querySelector("#currentCityCard")
 
     fillCard(currCard, weather)
 }
 
 function hideMainLoader(isHidden) {
-   document.getElementById("mainLoader").hidden = isHidden
+   document.querySelector("#mainLoader").hidden = isHidden
 }
 
 function fillCardHeader(card, weather) {
 
-   const header = card.getElementsByClassName("cityHeader")[0]
-   const cityLabel = header.getElementsByTagName("p")[0]
-   const image = header.getElementsByTagName("img")[0]
+   const header = card.querySelector(".cityHeader")
+   const cityLabel = header.querySelector("p")
+   const image = header.querySelector("img")
 
    cityLabel.textContent = weather.temperature
    image.src = weather.iconUrl
@@ -183,123 +183,40 @@ function fillCardHeader(card, weather) {
 function fillCard(card, weather) {
 
    const data = [ weather.windSpeed, weather.desc, weather.press, weather.humid, weather.coord ]
-   const rows = card.getElementsByClassName("parametersRaw")
+   const rows = card.querySelectorAll(".parametersRaw")
    
    for (let i = 0; i < rows.length; i++) {
-      const pars = rows[i].getElementsByTagName("p")
+      const pars = rows[i].querySelectorAll("p")
       pars[1].textContent = data[i]
    }
 
 }
 
 function hideCardLoader(card, isHidden) {
-   card.getElementsByClassName("loaderContainer")[0].hidden = isHidden
-   card.getElementsByClassName("parameters")[0].hidden = !isHidden
+   card.querySelector(".loaderContainer").hidden = isHidden
+   card.querySelector(".parameters").hidden = !isHidden
 }
 
 
 function createCityCard(cityName) {
 
-   const card = document.createElement("div")
-   card.setAttribute("class", "cityCard")
-
-   const header = createCityHeader(cityName)
-   const loader = createLoader()
-   const info = createCityInfo()
+   const cardTemplate = document.getElementById("cardTemplate")
+   const card = document.importNode(cardTemplate.content, true)
    
-   card.appendChild(header)
-   card.appendChild(loader)
-   info.hidden = true
-   card.appendChild(info)
+   card.querySelector("#cityHeader").textContent = cityName
+   card.querySelector(".cityCard").id = cityName 
+   card.querySelector(".parameters").hidden = true
    
    const list = document.getElementById("favoritesList")
    list.appendChild(card)
 
-
-   card.getElementsByTagName("input")[0].onclick = function () {
-      card.remove()
+   const currCard = document.querySelector("#" + cityName)
+   currCard.querySelector("input").onclick = function () {
+      currCard.remove()
       localStorage.removeItem(cityName)
    }
 
-   return card
-}
-
-function createCityHeader(cityName) {
-
-   const header = document.createElement("div")
-   header.setAttribute("class", "cityHeader")
-
-   const name = document.createElement("h3")
-   name.textContent = cityName
-
-   const temp = document.createElement("p")
-   temp.setAttribute("class", "cityLabel")
-
-   const img = document.createElement("img")
-
-   const deleteBtn = document.createElement("input")
-   deleteBtn.setAttribute("type", "image")
-   deleteBtn.src = "images/trash.png"
-
-   header.appendChild(name)
-   header.appendChild(temp)
-   header.appendChild(img)
-   header.appendChild(deleteBtn)
-
-   return header
-
-}
-
-function createLoader() {
-
-   const loaderContainer = document.createElement("div")
-   loaderContainer.setAttribute("class", "loaderContainer")
-
-   const loader = document.createElement("div")
-   loader.setAttribute("class", "loader")
-
-   loaderContainer.appendChild(loader)
-
-   return loaderContainer
-}
-
-function createCityInfo() {
-
-   const parameters = document.createElement("ul")
-   parameters.setAttribute("class", "parameters")
-
-   const wind = createParametersRow("Ветер")
-   parameters.appendChild(wind)
-
-   const cloudy = createParametersRow("Облачность")
-   parameters.appendChild(cloudy)
-
-   const pressure = createParametersRow("Давление")
-   parameters.appendChild(pressure)
-
-   const humidity = createParametersRow("Влажность")
-   parameters.appendChild(humidity)
-
-   const coordinates = createParametersRow("Координаты")
-   parameters.appendChild(coordinates)
-
-   return parameters
-}
-
-function createParametersRow(rowTitle) {
-
-   const row = document.createElement("li")
-   row.setAttribute("class", "parametersRaw")
-
-   const title = document.createElement("p")
-   title.textContent = rowTitle
-
-   const info = document.createElement("p")
-
-   row.appendChild(title)
-   row.appendChild(info)
-
-   return row
+   return currCard
 }
 
 

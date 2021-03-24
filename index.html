@@ -79,6 +79,51 @@
         </form>
 
         <ul class="favorites" id="favoritesList"> 
+            
+            <template id="cardTemplate">
+
+                <div class="cityCard">
+
+                    <div class="cityHeader">
+                        <h3 id="cityHeader"></h3>
+                        <p class="cityLabel"></p>
+                        <img src="images/weather.png">
+                        <input type="image" src="images/trash.png">
+                    </div>
+    
+                    <div class="loaderContainer" id="mainLoader">
+                        <div class="loader"></div>
+                    </div>
+    
+                    <ul class="parameters">
+        
+                        <li class="parametersRaw">
+                            <p>Ветер</p>
+                            <p></p>
+                        </li>
+                        <li class="parametersRaw">
+                            <p>Облачность</p>
+                            <p></p>
+                        </li>
+                        <li class="parametersRaw">
+                            <p>Давление</p>
+                            <p></p>
+                        </li>
+                        <li class="parametersRaw">
+                            <p>Влажность</p>
+                            <p></p>
+                        </li>
+                        <li class="parametersRaw">
+                            <p>Координаты</p>
+                            <p></p>
+                        </li>
+            
+                    </ul>
+    
+                </div>
+
+            </template>
+
         </ul>
 
     </main>
