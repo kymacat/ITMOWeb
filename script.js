@@ -64,6 +64,10 @@ function updateSubmit() {
       hideMainLoader(false)
       getGeoposition()
    }
+   document.querySelector("#updateBtnLtl").onclick = function () {
+      hideMainLoader(false)
+      getGeoposition()
+   }
 }
 
 function getCurrentLocation(position) {
