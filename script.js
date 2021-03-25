@@ -1,6 +1,8 @@
 
 const apiKey = "46efa0450e9fdaaa16b02c2f24cf859c"
 
+
+window.addEventListener("load", loaded)
 getGeoposition()
 
 function getGeoposition() {
@@ -8,16 +10,16 @@ function getGeoposition() {
    geolocation.getCurrentPosition(getCurrentLocation, geolocationError)
 }
 
-window.onload = function() {
+function loaded() {
    getCitiesFromLocalStorage()
-   formSubmit()
-   updateSubmit()
+   document.querySelector("#addCityForm").addEventListener("submit", formSubmit)
+   document.querySelector("#updateBtn").addEventListener("click", updateSubmit)
+   document.querySelector("#updateBtnLtl").addEventListener("click", updateSubmit)
 }
 
 
-
 function getCitiesFromLocalStorage() {
-
+   hideFavoritesLoader(true)
    for(let i=0; i<localStorage.length; i++) {
       let key = localStorage.key(i)
       const city = localStorage.getItem(key)
@@ -33,17 +35,17 @@ function getCitiesFromLocalStorage() {
 
 }
 
-function formSubmit() {
-
-   document.querySelector("#addCityForm").onsubmit = function() {
+function formSubmit(event) {
       
-      const field = document.getElementById("addCityField")
-      const city = field.value
+   const field = document.getElementById("addCityField")
+   const city = field.value
 
-      field.value = ""
-
+   
+   if (city != "") {
+      hideFavoritesLoader(false)
       getCityWeatherByName(city, function(data) {
 
+         hideFavoritesLoader(true)
          if (localStorage.getItem(city) == null) {
             localStorage[city] = city
             const card = createCityCard(city)
@@ -53,21 +55,17 @@ function formSubmit() {
          }
          
       })
-
-      return false
    }
+   
 
+   field.value = ""
+
+   event.preventDefault()
 }
 
 function updateSubmit() {
-   document.querySelector("#updateBtn").onclick = function () {
-      hideMainLoader(false)
-      getGeoposition()
-   }
-   document.querySelector("#updateBtnLtl").onclick = function () {
-      hideMainLoader(false)
-      getGeoposition()
-   }
+   hideMainLoader(false)
+   getGeoposition()
 }
 
 function getCurrentLocation(position) {
@@ -126,6 +124,7 @@ function getCityWeatherByName(cityname, callback) {
       .catch(function(error) {
          if (error == "Not Found") {
             alert("City not found")
+            hideFavoritesLoader(true)
          } else {
             alert(error)
          }
@@ -168,10 +167,6 @@ function showWeatherForMainCity(weather) {
     fillCard(currCard, weather)
 }
 
-function hideMainLoader(isHidden) {
-   document.querySelector("#mainLoader").hidden = isHidden
-}
-
 function fillCardHeader(card, weather) {
 
    const header = card.querySelector(".cityHeader")
@@ -195,6 +190,14 @@ function fillCard(card, weather) {
 
 }
 
+function hideMainLoader(isHidden) {
+   document.querySelector("#mainLoader").hidden = isHidden
+}
+
+function hideFavoritesLoader(isHidden) {
+   document.querySelector("#favoritesLoader").hidden = isHidden
+}
+
 function hideCardLoader(card, isHidden) {
    card.querySelector(".loaderContainer").hidden = isHidden
    card.querySelector(".parameters").hidden = !isHidden
@@ -214,10 +217,10 @@ function createCityCard(cityName) {
    list.appendChild(card)
 
    const currCard = document.querySelector("#" + cityName)
-   currCard.querySelector("input").onclick = function () {
+   currCard.querySelector("input").addEventListener("click", function () {
       currCard.remove()
       localStorage.removeItem(cityName)
-   }
+   })
 
    return currCard
 }
