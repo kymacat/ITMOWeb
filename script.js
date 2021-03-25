@@ -140,9 +140,8 @@ function parseWeather(data) {
     const wind = data.wind
 
     const cityTitle = place
-    const iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`
+    const iconUrl = `https://openweathermap.org/img/wn/${icon}@2x.png`
     const temperature = `${temp.toFixed(0)} °C`
-    
 
     const windSpeed = wind.speed + " м/с"
     const desc = description
