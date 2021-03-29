@@ -20,31 +20,28 @@ function loaded() {
 
 function getCitiesFromLocalStorage() {
    hideFavoritesLoader(true)
-   for(let i=0; i<localStorage.length; i++) {
+   for(let i = 0; i < localStorage.length; i++) {
       let key = localStorage.key(i)
       const city = localStorage.getItem(key)
       const card = createCityCard(city)
       getCityWeatherByName(city, function(data) {
-         
          fillCard(card, data)
          fillCardHeader(card, data)
          hideCardLoader(card, true)
-
       })
     }
 
 }
 
 function formSubmit(event) {
-      
+   
    const field = document.getElementById("addCityField")
    const city = field.value
 
-   
-   if (city != "") {
+   if (!isEmptyOrSpaces(city)) {
       hideFavoritesLoader(false)
       getCityWeatherByName(city, function(data) {
-
+   
          hideFavoritesLoader(true)
          if (localStorage.getItem(city) == null) {
             localStorage[city] = city
@@ -57,10 +54,13 @@ function formSubmit(event) {
       })
    }
    
-
    field.value = ""
 
    event.preventDefault()
+}
+
+function isEmptyOrSpaces(str) {
+   return str === null || str.match(/^ *$/) !== null;
 }
 
 function updateSubmit() {
@@ -111,7 +111,7 @@ function getCurrentLocation(position) {
 
 function getCityWeatherByName(cityname, callback) {
    const base = `https://api.openweathermap.org/data/2.5/weather?q=${cityname}&lang=ru&appid=${apiKey}&units=metric`
-
+   
    fetch(base)
       .then(handleErrors)
       .then((response) => {
@@ -216,7 +216,7 @@ function createCityCard(cityName) {
    const list = document.getElementById("favoritesList")
    list.appendChild(card)
 
-   const currCard = document.querySelector("#" + cityName)
+   const currCard = document.querySelector(`#${cityName}`)
    currCard.querySelector("input").addEventListener("click", function () {
       currCard.remove()
       localStorage.removeItem(cityName)
