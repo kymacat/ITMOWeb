@@ -36,7 +36,7 @@ function getCitiesFromLocalStorage() {
 function formSubmit(event) {
    
    const field = document.getElementById("addCityField")
-   const city = field.value
+   const city = field.value.trim()
 
    if (!isEmptyOrSpaces(city)) {
       hideFavoritesLoader(false)
@@ -209,14 +209,16 @@ function createCityCard(cityName) {
    const cardTemplate = document.getElementById("cardTemplate")
    const card = document.importNode(cardTemplate.content, true)
    
+   const cityId = cityName.replace(/\s/g, "")
+
    card.querySelector("#cityHeader").textContent = cityName
-   card.querySelector(".cityCard").id = cityName 
+   card.querySelector(".cityCard").id = cityId 
    card.querySelector(".parameters").hidden = true
    
    const list = document.getElementById("favoritesList")
    list.appendChild(card)
 
-   const currCard = document.querySelector(`#${cityName}`)
+   const currCard = document.querySelector(`#${cityId}`)
    currCard.querySelector("input").addEventListener("click", function () {
       currCard.remove()
       localStorage.removeItem(cityName)
