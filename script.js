@@ -1,5 +1,6 @@
 
 const apiKey = "46efa0450e9fdaaa16b02c2f24cf859c"
+const baseUrl = "http://127.0.0.1:3000/"
 
 
 window.addEventListener("load", loaded)
@@ -11,45 +12,60 @@ function getGeoposition() {
 }
 
 function loaded() {
-   getCitiesFromLocalStorage()
+   loadFavorites()
    document.querySelector("#addCityForm").addEventListener("submit", formSubmit)
    document.querySelector("#updateBtn").addEventListener("click", updateSubmit)
    document.querySelector("#updateBtnLtl").addEventListener("click", updateSubmit)
 }
 
 
-function getCitiesFromLocalStorage() {
-   hideFavoritesLoader(true)
-   for(let i = 0; i < localStorage.length; i++) {
-      let key = localStorage.key(i)
-      const city = localStorage.getItem(key)
-      const card = createCityCard(city)
-      getCityWeatherByName(city, function(data) {
-         fillCard(card, data)
-         fillCardHeader(card, data)
-         hideCardLoader(card, true)
-      })
-    }
+function loadFavorites() {
+   
+    getFavorites(function(favorites) {
+         hideFavoritesLoader(true)
+         for(let i = 0; i < favorites.length; i++) {
+            let city = favorites[i].cityTitle
+            const card = createCityCard(city)
+            getCityWeatherByName(city, function(data) {
+               fillCard(card, data)
+               fillCardHeader(card, data)
+               hideCardLoader(card, true)
+            })
+         }
+    })
 
 }
 
 function formSubmit(event) {
    
    const field = document.getElementById("addCityField")
-   const city = field.value
+   const city = field.value.trim()
 
    if (!isEmptyOrSpaces(city)) {
       hideFavoritesLoader(false)
       getCityWeatherByName(city, function(data) {
    
          hideFavoritesLoader(true)
-         if (localStorage.getItem(city) == null) {
-            localStorage[city] = city
+         postCity(data, function(err) {
+
+            if (err) {
+               if (err == "Bad Request") {
+                  alert("Такой город уже существует")
+               } else {
+                  alert(err)
+               }
+               
+               return
+            }
+
             const card = createCityCard(city)
             fillCard(card, data)
             fillCardHeader(card, data)
             hideCardLoader(card, true)
-         }
+
+         })
+         
+         
          
       })
    }
@@ -92,9 +108,7 @@ function getCurrentLocation(position) {
 }
 
  function getCityWeather(cityLat, cityLon, callback) {
-
-    const base = `https://api.openweathermap.org/data/2.5/weather?lat=${cityLat}&lon=${cityLon}&lang=ru&appid=${apiKey}&units=metric`
-
+    const base = baseUrl + `weather/coordinates?lat=${cityLat}&lon=${cityLon}`
     fetch(base)
       .then(handleErrors)
       .then((response) => {
@@ -110,7 +124,7 @@ function getCurrentLocation(position) {
 }
 
 function getCityWeatherByName(cityname, callback) {
-   const base = `https://api.openweathermap.org/data/2.5/weather?q=${cityname}&lang=ru&appid=${apiKey}&units=metric`
+   const base = baseUrl + `weather/city?q=${cityname}`
    
    fetch(base)
       .then(handleErrors)
@@ -131,8 +145,60 @@ function getCityWeatherByName(cityname, callback) {
      })
 }
 
+function getFavorites(callback) {
+
+   fetch(baseUrl + "favorites")
+   .then(handleErrors)
+   .then((response) => {
+      return response.json()
+    })
+    .then((data) => {
+       callback(data)
+    })
+   .catch(function(error) {
+      alert(error)
+   })
+
+} 
+
+function postCity(cityData, callback) {
+   fetch(baseUrl + "favorites", {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(cityData)
+   })
+   .then(handleErrors)
+   .then((response) => {
+      callback(null)
+   })
+   .catch(function(error) {
+      callback(error)
+   })
+
+}
+
+function deleteCity(cityName, callback) {
+   fetch(baseUrl + "favorites", {
+      method: 'DELETE',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+         city: cityName
+      })
+   })
+   .then(handleErrors)
+   .then((response) => {
+      callback(null)
+   })
+   .catch(function(err) {
+      callback(err)
+   })
+}
+
 function parseWeather(data) {
-    console.log(data)
     const { temp, pressure, humidity } = data.main
     const place = data.name
     const { description, icon } = data.weather[0]
@@ -209,17 +275,28 @@ function createCityCard(cityName) {
    const cardTemplate = document.getElementById("cardTemplate")
    const card = document.importNode(cardTemplate.content, true)
    
+   const cityId = cityName.replace(/\s/g, "")
+
    card.querySelector("#cityHeader").textContent = cityName
-   card.querySelector(".cityCard").id = cityName 
+   card.querySelector(".cityCard").id = cityId
    card.querySelector(".parameters").hidden = true
    
    const list = document.getElementById("favoritesList")
    list.appendChild(card)
 
-   const currCard = document.querySelector(`#${cityName}`)
+   const currCard = document.querySelector(`#${cityId}`)
    currCard.querySelector("input").addEventListener("click", function () {
-      currCard.remove()
-      localStorage.removeItem(cityName)
+      
+      hideFavoritesLoader(false)
+      deleteCity(cityName, function(err) {
+         hideFavoritesLoader(true)
+         if (err) {
+            alert(err)
+            return
+         }
+         currCard.remove()
+      })
+
    })
 
    return currCard
